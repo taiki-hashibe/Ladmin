@@ -12,14 +12,14 @@ class CrudController extends AbstractCrudController
 {
     public function show(Request $request)
     {
-        return View::first([LadminConfig::config('view.prefix').'.crud.show', LadminConfig::themeView('crud.show')], [
+        return View::first([LadminConfig::config('view.prefix') . '.crud.show', LadminConfig::themeView('crud.show')], [
             'fields' => $this->showFields(),
         ]);
     }
 
     public function detail(Request $request)
     {
-        return View::first([LadminConfig::config('view.prefix').'.crud.detail', LadminConfig::themeView('crud.detail')], [
+        return View::first([LadminConfig::config('view.prefix') . '.crud.detail', LadminConfig::themeView('crud.detail')], [
             'fields' => $this->detailFields(),
         ]);
     }
@@ -27,8 +27,8 @@ class CrudController extends AbstractCrudController
     public function edit(Request $request)
     {
         return View::first([
-            LadminConfig::config('view.prefix').'.crud.detail',
-            LadminConfig::themeView('crud.show'),
+            LadminConfig::config('view.prefix') . '.crud.detail',
+            LadminConfig::themeView('crud.edit'),
         ], [
             'fields' => $this->editFields(),
         ]);

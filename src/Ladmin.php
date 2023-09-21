@@ -17,12 +17,18 @@ class Ladmin
         return new SupportLadminRoute();
     }
 
-    public function currentQuery()
+    public function currentRoute()
     {
         $currentRoute = LadminRoute::getCurrentRoute();
         if (!$currentRoute) {
             throw new Exception('Current route is not available.');
         }
+        return $currentRoute;
+    }
+
+    public function currentQuery()
+    {
+        $currentRoute = $this->currentRoute();
         $currentTableName = $currentRoute->getTableName();
         if (!$currentTableName) {
             throw new Exception('Current table name is not available.');
