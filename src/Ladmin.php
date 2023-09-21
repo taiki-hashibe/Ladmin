@@ -20,15 +20,15 @@ class Ladmin
     public function currentQuery()
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (! $currentRoute) {
+        if (!$currentRoute) {
             throw new Exception('Current route is not available.');
         }
         $currentTableName = $currentRoute->getTableName();
-        if (! $currentTableName) {
+        if (!$currentTableName) {
             throw new Exception('Current table name is not available.');
         }
         $currentQuery = LadminQueryManager::getQuery($currentTableName);
-        if (! $currentQuery) {
+        if (!$currentQuery) {
             throw new Exception("Query for table '$currentTableName' is not available.");
         }
 
@@ -109,11 +109,11 @@ class Ladmin
     public function getCurrentCrudGroup(): ?array
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (! $currentRoute) {
+        if (!$currentRoute) {
             return null;
         }
         $currentGroupName = $currentRoute->getGroupName();
-        if (! $currentGroupName) {
+        if (!$currentGroupName) {
             return null;
         }
         $crud = [];
@@ -129,7 +129,7 @@ class Ladmin
     private function getCrudAction(string $crudAction): Route
     {
         $currentCrudGroup = $this->getCurrentCrudGroup();
-        if (! $currentCrudGroup) {
+        if (!$currentCrudGroup) {
             throw new Exception('Current CRUD group is not available.');
         }
         foreach ($currentCrudGroup as $route) {
@@ -245,7 +245,7 @@ class Ladmin
     public function hasCrudAction(string $crudAction): bool
     {
         $currentCrudGroup = $this->getCurrentCrudGroup();
-        if (! $currentCrudGroup) {
+        if (!$currentCrudGroup) {
             return false;
         }
         foreach ($currentCrudGroup as $route) {
