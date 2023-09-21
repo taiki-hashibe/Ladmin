@@ -96,7 +96,7 @@ class Ladmin
             }
             if ($name) {
                 if (in_array($name, $route->getNavigation())) {
-                    $navigation->register($route->toNavigation());
+                    $navigation->register($route->toNavigation($name));
                 }
             } else {
                 $navigation->register($route->toNavigation());

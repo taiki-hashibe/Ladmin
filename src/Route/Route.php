@@ -107,12 +107,12 @@ class Route
         return $this->navigation;
     }
 
-    public function toNavigation(self $route = null)
+    public function toNavigation(?string $name = null, ?self $route = null)
     {
-        if (! $route) {
+        if (!$route) {
             $route = $this;
         }
 
-        return new Navigation($this->label, $this->route->uri, $this->route->action['as']);
+        return new Navigation($this->label, $this->route->uri, $this->route->action['as'], $name);
     }
 }

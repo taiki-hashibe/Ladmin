@@ -15,14 +15,17 @@ class Navigation implements Renderable
 
     public string $uri;
 
-    public string $name;
+    public string $routeName;
+
+    public string|null $name;
 
     public string $view = 'navigation.default';
 
-    public function __construct(string $label, string $uri, string $name, string $view = null)
+    public function __construct(string $label, string $uri, string $routeName, ?string $name = null, ?string $view = null)
     {
         $this->label = $label;
         $this->uri = $uri;
+        $this->routeName = $routeName;
         $this->name = $name;
         if ($view) {
             $this->view = $view;
@@ -39,11 +42,11 @@ class Navigation implements Renderable
     public function isActive(): bool
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (! $currentRoute) {
+        if (!$currentRoute) {
             return false;
         }
 
-        return $this->name === $currentRoute->route->action['as'];
+        return $this->routeName === $currentRoute->route->action['as'];
     }
 
     public function toArray()
@@ -51,7 +54,7 @@ class Navigation implements Renderable
         return [
             'label' => $this->label,
             'uri' => $this->uri,
-            'name' => $this->name,
+            'routeName' => $this->routeName,
         ];
     }
 

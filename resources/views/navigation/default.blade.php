@@ -1,3 +1,3 @@
-<a href="{{ route($navigation->name, $params) }}">
+<a href="{{ route($navigation->routeName, $params) }}">
     {{ $navigation->label }}
 </a>
