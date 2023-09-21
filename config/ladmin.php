@@ -9,15 +9,15 @@ return [
         'edit' => 'edit',
         'create' => 'create',
         'update' => 'update',
-        'destroy' => 'destroy'
+        'destroy' => 'destroy',
     ],
     'namespace' => [
         'controller' => 'App\Admin\Controllers',
         'fields' => 'App\Admin\Fields',
     ],
     'view' => [
-        'prefix' => 'admin'
-    ]
+        'prefix' => 'admin',
+    ],
     // 'index' => null,
     // 'route' => [
     //     'prefix' => 'admin',

@@ -17,6 +17,7 @@ class GenerateValidationRules
             }
             $validations[$col->getName()][] = $this->generateColumn($col);
         }
+
         return $validations;
     }
 
@@ -25,7 +26,7 @@ class GenerateValidationRules
         $rules = [];
 
         // Check for NOT NULL constraint
-        if (!$column->getNotnull()) {
+        if (! $column->getNotnull()) {
             $rules[] = 'nullable';
         } else {
             $rules[] = 'required';
@@ -36,14 +37,14 @@ class GenerateValidationRules
         switch ($type) {
             case 'string':
                 $rules[] = 'string';
-                $rules[] = 'max:' . $column->getLength();
+                $rules[] = 'max:'.$column->getLength();
                 break;
             case 'integer':
                 $rules[] = 'integer';
                 break;
             case 'float':
                 $rules[] = 'numeric';
-                $rules[] = 'between:' . (-10 ** 9) . ',' . (10 ** 9); // Example range
+                $rules[] = 'between:'.(-10 ** 9).','.(10 ** 9); // Example range
                 break;
                 // Add cases for other data types as needed
         }

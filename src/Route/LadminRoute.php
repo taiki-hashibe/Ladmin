@@ -3,12 +3,12 @@
 namespace LowB\Ladmin\Route;
 
 use Exception;
+use Illuminate\Support\Facades\Route as SupportRoute;
+use LowB\Ladmin\Controllers\AuthController;
 use LowB\Ladmin\Controllers\CrudController;
 use LowB\Ladmin\Controllers\DashboardController;
 use LowB\Ladmin\Controllers\ProfileController;
 use LowB\Ladmin\Support\Query\LadminQuery;
-use Illuminate\Support\Facades\Route as SupportRoute;
-use LowB\Ladmin\Controllers\AuthController;
 
 class LadminRoute extends BaseLadminRoute
 {
@@ -21,7 +21,7 @@ class LadminRoute extends BaseLadminRoute
     {
         $currentRouteName = SupportRoute::currentRouteName();
         if ($currentRouteName === null) {
-            throw new Exception("Current route name is not available.");
+            throw new Exception('Current route name is not available.');
         }
         foreach ($this->routes as $route) {
             $routeName = $route->getRoute()->action['as'];
@@ -29,6 +29,7 @@ class LadminRoute extends BaseLadminRoute
                 return $route;
             }
         }
+
         return null;
     }
 
@@ -67,6 +68,7 @@ class LadminRoute extends BaseLadminRoute
         $this->get('/login', [$controllerName, 'login'])->setGroupName('auth')->setLabel('Login');
         $this->post('/login/register', [$controllerName, 'register'])->setGroupName('auth');
         $this->useMiddleware = true;
+
         return $this->get('/logout', [$controllerName, 'logout'])->setGroupName('auth')->setLabel('Logout')->setNavigation(['dropdown']);
     }
 
@@ -83,6 +85,7 @@ class LadminRoute extends BaseLadminRoute
         $this->post('/profile/update', [$controllerName, 'update'])->setGroupName('profile');
         $this->post('/profile/destroy', [$controllerName, 'destroy'])->setGroupName('profile');
         $this->post('/profile/password-change', [$controllerName, 'passwordChange'])->setGroupName('profile');
+
         return $this->get('/profile', [$controllerName, 'index'])
             ->setGroupName('profile')
             ->setLabel('Profile')

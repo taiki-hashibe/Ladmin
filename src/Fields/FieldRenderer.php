@@ -12,7 +12,7 @@ abstract class FieldRenderer implements Renderable
 {
     protected string $view = 'fields.default';
 
-    protected string|null $type;
+    protected ?string $type;
 
     protected string $columnName;
 
@@ -20,7 +20,7 @@ abstract class FieldRenderer implements Renderable
 
     protected array $validation = [];
 
-    public function __construct(string $columnName, string $view, ?string $type = null)
+    public function __construct(string $columnName, string $view, string $type = null)
     {
         $this->columnName = $columnName;
         $this->label = $columnName;
@@ -36,6 +36,7 @@ abstract class FieldRenderer implements Renderable
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
         return $this;
     }
 
@@ -52,12 +53,14 @@ abstract class FieldRenderer implements Renderable
     public function setView(string $view): self
     {
         $this->view = $view;
+
         return $this;
     }
 
     public function setValidation(array $validation): self
     {
         $this->validation = $validation;
+
         return $this;
     }
 
@@ -77,6 +80,7 @@ abstract class FieldRenderer implements Renderable
             $viewPriority[] = LadminConfig::localView(Str::of($this->view)->replace('default', $this->type));
         }
         $viewPriority[] = LadminConfig::themeView($this->view);
+
         return View::first($viewPriority, [
             'field' => $this,
             'label' => $this->getLabel(),

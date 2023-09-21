@@ -3,8 +3,8 @@
 namespace LowB\Ladmin\Support\Query;
 
 use Exception;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use LowB\Ladmin\Support\Facades\LadminQueryManager;
@@ -12,9 +12,13 @@ use LowB\Ladmin\Support\Facades\LadminQueryManager;
 class LadminQuery
 {
     public const TYPE_MODEL = 'model';
+
     public const TYPE_BUILDER = 'builder';
+
     public string $primaryKey = 'id';
+
     public Model|Builder $query;
+
     public string $queryType;
 
     public function __construct(string $name)
@@ -42,6 +46,7 @@ class LadminQuery
         if ($register) {
             LadminQueryManager::register($query);
         }
+
         return $query;
     }
 
@@ -50,7 +55,7 @@ class LadminQuery
         if (is_subclass_of($name, Model::class)) {
             return app()->make($name);
         } else {
-            return  DB::table($name);
+            return DB::table($name);
         }
     }
 
@@ -62,7 +67,7 @@ class LadminQuery
         if ($query instanceof Builder) {
             return self::TYPE_BUILDER;
         }
-        throw new Exception('The specified class [$query] is neither a subclass of ' . Model::class . " nor " . Builder::class . ".");
+        throw new Exception('The specified class [$query] is neither a subclass of '.Model::class.' nor '.Builder::class.'.');
     }
 
     public function getTable()
@@ -70,6 +75,7 @@ class LadminQuery
         if ($this->queryType === self::TYPE_MODEL) {
             return $this->query->getTable();
         }
+
         return $this->query->from;
     }
 
@@ -79,6 +85,7 @@ class LadminQuery
         foreach ($this->getColumnNames() as $column) {
             $columns[$column] = Schema::connection(config('database.default'))->getConnection()->getDoctrineColumn($this->getTable(), $column);
         }
+
         return $columns;
     }
 
@@ -103,6 +110,7 @@ class LadminQuery
         if ($this->queryType === self::TYPE_MODEL) {
             return $currentItem->first()->update($value);
         }
+
         return $currentItem->update($value);
     }
 
@@ -112,6 +120,7 @@ class LadminQuery
         if ($this->queryType === self::TYPE_MODEL) {
             return $currentItem->first()->delete();
         }
+
         return $currentItem->delete();
     }
 }

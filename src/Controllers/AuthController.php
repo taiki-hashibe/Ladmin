@@ -15,8 +15,8 @@ class AuthController extends Controller
     public function login(Request $request): View|RedirectResponse
     {
         return FacadesView::first([
-            LadminConfig::config('view.prefix') . '.auth.login',
-            LadminConfig::themeView('auth.login')
+            LadminConfig::config('view.prefix').'.auth.login',
+            LadminConfig::themeView('auth.login'),
         ]);
     }
 
@@ -32,6 +32,7 @@ class AuthController extends Controller
 
             return redirect()->intended(route(LadminRoute::dashboard()->index()->name));
         }
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
@@ -44,6 +45,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
         return redirect()->route(LadminRoute::auth()->login()->name);
     }
 }

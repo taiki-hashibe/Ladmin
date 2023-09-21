@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 class LadminConfig
 {
     protected array $config = [];
+
     protected string $theme = 'ladmin';
 
     public function __construct()

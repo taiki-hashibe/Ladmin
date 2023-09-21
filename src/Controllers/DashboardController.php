@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {
         return View::first([
             LadminConfig::localView('dashboard'),
-            LadminConfig::themeView('dashboard')
+            LadminConfig::themeView('dashboard'),
         ]);
     }
 }

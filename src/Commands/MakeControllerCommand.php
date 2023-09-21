@@ -34,12 +34,13 @@ class MakeControllerCommand extends GeneratorCommand
     public function handle()
     {
         $this->queryName = $this->getQueryInput();
-        $this->controllerName = class_basename($this->queryName) . 'CrudController';
+        $this->controllerName = class_basename($this->queryName).'CrudController';
 
-        $name = $this->qualifyClass(LadminConfig::config('namespace.controller') . '\\' . $this->controllerName);
+        $name = $this->qualifyClass(LadminConfig::config('namespace.controller').'\\'.$this->controllerName);
         $path = $this->getPath($name);
         $this->makeDirectory($path);
         $this->files->put($path, $this->sortImports($this->buildClass($name)));
+
         return true;
     }
 
@@ -62,7 +63,7 @@ class MakeControllerCommand extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__ . '\\..\\stubs\\Controllers\\CrudController.stub';
+        return __DIR__.'\\..\\stubs\\Controllers\\CrudController.stub';
     }
 
     protected function replaceClass($stub, $name)
