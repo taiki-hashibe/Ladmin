@@ -23,6 +23,7 @@ class Ladmin
         if (! $currentRoute) {
             throw new Exception('Current route is not available.');
         }
+
         return $currentRoute;
     }
 
