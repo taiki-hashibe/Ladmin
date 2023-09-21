@@ -27,7 +27,7 @@ class LadminConfig
 
     public function localView(string $view)
     {
-        return $this->config('view.prefix') . "::$view";
+        return $this->config('view.prefix')."::$view";
     }
 
     public function themeView(string $view)
