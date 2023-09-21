@@ -5,7 +5,7 @@ namespace LowB\Ladmin\View\Components;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class AuthLayout extends Component
+class LadminAuthLayout extends Component
 {
     public function render(): View
     {

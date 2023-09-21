@@ -1,4 +1,4 @@
-<x-layouts-auth>
+<x-ladmin-layouts-auth>
     <x-slot name="content">
         <table>
             <thead>
@@ -33,4 +33,4 @@
             </tbody>
         </table>
     </x-slot>
-</x-layouts-auth>
+</x-ladmin-layouts-auth>

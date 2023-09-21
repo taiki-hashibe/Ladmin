@@ -1,4 +1,4 @@
-<x-layouts-ladmin>
+<x-ladmin-layouts-ladmin>
     <x-slot name="header">
         <nav class="bg-white border-b border-gray-100">
             <!-- Primary Navigation Menu -->
@@ -23,4 +23,4 @@
     </x-slot>
     <x-slot name="footer">
     </x-slot>
-</x-layouts-ladmin>
+</x-ladmin-layouts-ladmin>

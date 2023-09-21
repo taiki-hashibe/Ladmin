@@ -1,4 +1,4 @@
-<x-layouts-auth>
+<x-ladmin-layouts-auth>
 
     <x-slot name="content">
         <form method="post" action="{{ Ladmin::route()->profile()->update()->url }}" class="mt-6 space-y-6">
@@ -48,4 +48,4 @@
             </div>
         </form>
     </x-slot>
-</x-layouts-auth>
+    </x-layouts-auth>

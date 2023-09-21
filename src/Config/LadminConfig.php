@@ -14,6 +14,11 @@ class LadminConfig
         $this->config = config('ladmin');
     }
 
+    public function theme(string $theme)
+    {
+        $this->theme = $theme;
+    }
+
     public function config(string $key)
     {
         return Arr::get($this->config, $key);

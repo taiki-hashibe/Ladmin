@@ -5,7 +5,7 @@ namespace LowB\Ladmin\View\Components;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class GuestLayout extends Component
+class LadminGuestLayout extends Component
 {
     public function render(): View
     {

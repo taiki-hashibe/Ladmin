@@ -38,8 +38,8 @@ class LadminServiceProvider extends PackageServiceProvider
                     ->publishMigrations()
                     ->askToRunMigrations();
             });;
-        Blade::component('layouts-ladmin', \LowB\Ladmin\View\Components\LadminLayout::class);
-        Blade::component('layouts-auth', \LowB\Ladmin\View\Components\AuthLayout::class);
-        Blade::component('layouts-guest', \LowB\Ladmin\View\Components\GuestLayout::class);
+        Blade::component('ladmin-layouts-ladmin', \LowB\Ladmin\View\Components\LadminLayout::class);
+        Blade::component('ladmin-layouts-auth', \LowB\Ladmin\View\Components\LadminAuthLayout::class);
+        Blade::component('ladmin-layouts-guest', \LowB\Ladmin\View\Components\LadminGuestLayout::class);
     }
 }

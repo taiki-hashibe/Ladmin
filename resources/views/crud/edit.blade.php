@@ -1,4 +1,4 @@
-<x-layouts-auth>
+<x-ladmin-layouts-auth>
     <x-slot name="content">
         <form
             action="{{ route(Ladmin::getUpdateRouteName(), [
@@ -22,4 +22,4 @@
             </form>
         @endif
     </x-slot>
-</x-layouts-auth>
+</x-ladmin-layouts-auth>
