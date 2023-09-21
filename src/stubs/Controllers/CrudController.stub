@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+use LowB\Ladmin\Controllers\CrudController;
+
+class DummyControllerName extends CrudController
+{
+    public function showFields()
+    {
+        return [];
+    }
+
+    public function detailFields()
+    {
+        return [];
+    }
+
+    public function editorFields()
+    {
+        return [];
+    }
+}
