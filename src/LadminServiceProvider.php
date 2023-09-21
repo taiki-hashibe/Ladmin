@@ -3,11 +3,11 @@
 namespace LowB\Ladmin;
 
 use Illuminate\Support\Facades\Blade;
+use LowB\Ladmin\Commands\LadminCommand;
+use LowB\Ladmin\Commands\MakeControllerCommand;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use LowB\Ladmin\Commands\LadminCommand;
-use LowB\Ladmin\Commands\MakeControllerCommand;
 
 class LadminServiceProvider extends PackageServiceProvider
 {
@@ -37,7 +37,7 @@ class LadminServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations();
-            });;
+            });
         Blade::component('layouts-ladmin', \LowB\Ladmin\View\Components\LadminLayout::class);
         Blade::component('layouts-auth', \LowB\Ladmin\View\Components\AuthLayout::class);
         Blade::component('layouts-guest', \LowB\Ladmin\View\Components\GuestLayout::class);

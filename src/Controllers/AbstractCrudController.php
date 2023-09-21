@@ -3,7 +3,6 @@
 namespace LowB\Ladmin\Controllers;
 
 use Illuminate\Http\Request;
-use LowB\Ladmin\Crud\Crud;
 use LowB\Ladmin\Facades\Ladmin;
 use LowB\Ladmin\Support\Facades\GenerateFields;
 
@@ -31,6 +30,7 @@ class AbstractCrudController extends Controller
         foreach ($editorFields as $field) {
             $validations[$field->getName()] = $field->getValidation();
         }
+
         return $validations;
     }
 
@@ -41,6 +41,7 @@ class AbstractCrudController extends Controller
         foreach ($editorFields as $field) {
             $values[$field->getName()] = $request->{$field->getName()};
         }
+
         return $values;
     }
 }

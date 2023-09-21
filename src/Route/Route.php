@@ -8,10 +8,15 @@ use LowB\Ladmin\Support\Navigation;
 class Route
 {
     protected mixed $route = null;
+
     protected string $label = '';
-    protected string|null $crudAction = null;
-    protected string|null $groupName = null;
-    protected string|null $tableName = null;
+
+    protected ?string $crudAction = null;
+
+    protected ?string $groupName = null;
+
+    protected ?string $tableName = null;
+
     protected array $navigation = [];
 
     public static function make(): self
@@ -26,6 +31,7 @@ class Route
         } else {
             $this->route = FacadesRoute::{$method}(...$args);
         }
+
         return $this;
     }
 
@@ -37,6 +43,7 @@ class Route
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
         return $this;
     }
 
@@ -48,10 +55,11 @@ class Route
     public function setCrudAction(string $crudAction): self
     {
         $this->crudAction = $crudAction;
+
         return $this;
     }
 
-    public function getCrudAction(): string|null
+    public function getCrudAction(): ?string
     {
         return $this->crudAction;
     }
@@ -59,10 +67,11 @@ class Route
     public function setGroupName(string $groupName): self
     {
         $this->groupName = $groupName;
+
         return $this;
     }
 
-    public function getGroupName(): string|null
+    public function getGroupName(): ?string
     {
         return $this->groupName;
     }
@@ -70,10 +79,11 @@ class Route
     public function setTableName(string $tableName): self
     {
         $this->tableName = $tableName;
+
         return $this;
     }
 
-    public function getTableName(): string|null
+    public function getTableName(): ?string
     {
         return $this->tableName;
     }
@@ -81,12 +91,14 @@ class Route
     public function setNavigation(array $navigation): self
     {
         $this->navigation = $navigation;
+
         return $this;
     }
 
     public function addNavigation(string $navigation): self
     {
         $this->navigation[] = $navigation;
+
         return $this;
     }
 
@@ -95,11 +107,12 @@ class Route
         return $this->navigation;
     }
 
-    public function toNavigation(?self $route = null)
+    public function toNavigation(self $route = null)
     {
-        if (!$route) {
+        if (! $route) {
             $route = $this;
         }
+
         return new Navigation($this->label, $this->route->uri, $this->route->action['as']);
     }
 }

@@ -20,17 +20,18 @@ class Ladmin
     public function currentQuery()
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (!$currentRoute) {
-            throw new Exception("Current route is not available.");
+        if (! $currentRoute) {
+            throw new Exception('Current route is not available.');
         }
         $currentTableName = $currentRoute->getTableName();
-        if (!$currentTableName) {
-            throw new Exception("Current table name is not available.");
+        if (! $currentTableName) {
+            throw new Exception('Current table name is not available.');
         }
         $currentQuery = LadminQueryManager::getQuery($currentTableName);
-        if (!$currentQuery) {
+        if (! $currentQuery) {
             throw new Exception("Query for table '$currentTableName' is not available.");
         }
+
         return $currentQuery;
     }
 
@@ -44,6 +45,7 @@ class Ladmin
         $primaryKey = request()->primaryKey;
         $query = $this->currentQuery();
         $currentItem = $query->find($primaryKey)->first();
+
         return $currentItem;
     }
 
@@ -59,6 +61,7 @@ class Ladmin
         if ($currentItem === null) {
             throw new Exception("Current item with primary key '$primaryKey' not found.");
         }
+
         return $currentItem;
     }
 
@@ -71,6 +74,7 @@ class Ladmin
     {
         $primaryKey = request()->primaryKey;
         $query = $this->currentQuery();
+
         return $query->findUpdate($primaryKey, $value);
     }
 
@@ -78,10 +82,11 @@ class Ladmin
     {
         $primaryKey = request()->primaryKey;
         $query = $this->currentQuery();
+
         return $query->findDelete($primaryKey);
     }
 
-    public function getNavigation(?string $name = null)
+    public function getNavigation(string $name = null)
     {
         $navigation = new RenderableArray();
         $routes = LadminRoute::getRoutes();
@@ -97,17 +102,18 @@ class Ladmin
                 $navigation->register($route->toNavigation());
             }
         }
+
         return $navigation;
     }
 
-    public function getCurrentCrudGroup(): array|null
+    public function getCurrentCrudGroup(): ?array
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (!$currentRoute) {
+        if (! $currentRoute) {
             return null;
         }
         $currentGroupName = $currentRoute->getGroupName();
-        if (!$currentGroupName) {
+        if (! $currentGroupName) {
             return null;
         }
         $crud = [];
@@ -116,14 +122,15 @@ class Ladmin
                 $crud[] = $route;
             }
         }
+
         return $crud;
     }
 
     private function getCrudAction(string $crudAction): Route
     {
         $currentCrudGroup = $this->getCurrentCrudGroup();
-        if (!$currentCrudGroup) {
-            throw new Exception("Current CRUD group is not available.");
+        if (! $currentCrudGroup) {
+            throw new Exception('Current CRUD group is not available.');
         }
         foreach ($currentCrudGroup as $route) {
             if ($route->getCrudAction() === $crudAction) {
@@ -231,13 +238,14 @@ class Ladmin
                 return true;
             }
         }
+
         return false;
     }
 
     public function hasCrudAction(string $crudAction): bool
     {
         $currentCrudGroup = $this->getCurrentCrudGroup();
-        if (!$currentCrudGroup) {
+        if (! $currentCrudGroup) {
             return false;
         }
         foreach ($currentCrudGroup as $route) {
@@ -245,6 +253,7 @@ class Ladmin
                 return true;
             }
         }
+
         return false;
     }
 

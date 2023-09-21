@@ -6,7 +6,7 @@ class BelongsTo extends FieldRenderer
 {
     protected $belongsTo;
 
-    public function __construct(string $columnName, string $belongsTo, string $view, ?string $type = null)
+    public function __construct(string $columnName, string $belongsTo, string $view, string $type = null)
     {
         parent::__construct($columnName, $view, $type);
         $this->belongsTo = $belongsTo;

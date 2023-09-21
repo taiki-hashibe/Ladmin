@@ -6,12 +6,11 @@ use Illuminate\Contracts\View\View as ViewView;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use LowB\Ladmin\Facades\Ladmin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rules\Password;
 use LowB\Ladmin\Config\Facades\LadminConfig;
-use LowB\Ladmin\Support\Facades\LadminRoute;
+use LowB\Ladmin\Facades\Ladmin;
 
 class ProfileController extends Controller
 {
@@ -19,9 +18,9 @@ class ProfileController extends Controller
     {
         return View::first([
             LadminConfig::localView('profile.index'),
-            LadminConfig::themeView('profile.index')
+            LadminConfig::themeView('profile.index'),
         ], [
-            'user' => Auth::user()
+            'user' => Auth::user(),
         ]);
     }
 
@@ -29,8 +28,9 @@ class ProfileController extends Controller
     {
         $request->user()->update([
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
         ]);
+
         return back()->with('status', 'profile updated');
     }
 
@@ -51,6 +51,7 @@ class ProfileController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         $request->user()->delete();
+
         return redirect()->route(Ladmin::login()->getRouteName());
     }
 }
