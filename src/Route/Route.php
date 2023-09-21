@@ -109,7 +109,7 @@ class Route
 
     public function toNavigation(string $name = null, self $route = null)
     {
-        if (! $route) {
+        if (!$route) {
             $route = $this;
         }
 

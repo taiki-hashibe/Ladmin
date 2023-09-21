@@ -1,5 +1,6 @@
 <x-ladmin-layouts-auth>
     <x-slot name="content">
+        <h2>{{ __(Ladmin::currentRoute()->getTableName()) }}</h2>
         <form
             action="{{ route(Ladmin::getUpdateRouteName(), [
                 'primaryKey' => Ladmin::currentItemPrimaryKey(),

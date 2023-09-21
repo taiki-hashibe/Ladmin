@@ -2,6 +2,7 @@
 
 namespace LowB\Ladmin\Route;
 
+use Closure;
 use Exception;
 use Illuminate\Support\Facades\Route as SupportRoute;
 use LowB\Ladmin\Controllers\AuthController;
@@ -33,19 +34,19 @@ class LadminRoute extends BaseLadminRoute
         return null;
     }
 
-    public function show(string $modelOrTable, string $controllerName = CrudController::class): mixed
+    public function show(string $modelOrTable, string $controllerName = CrudController::class, ?string $displayColumn = null): mixed
     {
-        return $this->_show(LadminQuery::make($modelOrTable), $this->makeController($controllerName));
+        return $this->_show(LadminQuery::make($modelOrTable, $displayColumn), $this->makeController($controllerName));
     }
 
-    public function detail(string $modelOrTable, string $controllerName = CrudController::class): mixed
+    public function detail(string $modelOrTable, string $controllerName = CrudController::class, ?string $displayColumn = null): mixed
     {
-        return $this->_detail(LadminQuery::make($modelOrTable), $this->makeController($controllerName));
+        return $this->_detail(LadminQuery::make($modelOrTable, $displayColumn), $this->makeController($controllerName));
     }
 
-    public function edit(string $modelOrTable, string $controllerName = CrudController::class): mixed
+    public function edit(string $modelOrTable, string $controllerName = CrudController::class, string|Closure $displayColumn = null): mixed
     {
-        return $this->_edit(LadminQuery::make($modelOrTable), $this->makeController($controllerName));
+        return $this->_edit(LadminQuery::make($modelOrTable, $displayColumn), $this->makeController($controllerName));
     }
 
     public function create(string $modelOrTable, string $controllerName = CrudController::class): mixed
@@ -92,9 +93,9 @@ class LadminRoute extends BaseLadminRoute
             ->setNavigation(['dropdown']);
     }
 
-    public function crud(string $modelOrTable, string $controllerName = CrudController::class): mixed
+    public function crud(string $modelOrTable, string $controllerName = CrudController::class, string|Closure $displayColumn = null): mixed
     {
-        $query = LadminQuery::make($modelOrTable);
+        $query = LadminQuery::make($modelOrTable, $displayColumn);
         $controller = $this->makeController($controllerName);
         $this->_detail($query, $controller);
         $this->_edit($query, $controller);

@@ -18,10 +18,10 @@ class BaseLadminRoute
 
     protected bool $useMiddleware = false;
 
-    public function __call($method, $args)
+    public function __call($method, $args): Route
     {
         if (LadminConfig::config('view.prefix')) {
-            $args[0] = '/'.LadminConfig::config('view.prefix').$args[0];
+            $args[0] = '/' . LadminConfig::config('view.prefix') . $args[0];
         }
         $router = Route::make()->{$method}(...$args)->name($this->generateName($args[0]));
         if ($this->useMiddleware) {
@@ -32,9 +32,9 @@ class BaseLadminRoute
         return $router;
     }
 
-    protected function _crudRouting(LadminQuery $query, CrudController $controller, string $method, string $crudAction, string $actionName, string $primaryKey = null): mixed
+    protected function _crudRouting(LadminQuery $query, CrudController $controller, string $method, string $crudAction, string $actionName, string $primaryKey = null): Route
     {
-        $uri = "/{$query->getTable()}/$crudAction".($primaryKey ? "/$primaryKey" : '');
+        $uri = "/{$query->getTable()}/$crudAction" . ($primaryKey ? "/$primaryKey" : '');
 
         return $this->{$method}($uri, [$controller::class, $actionName])
             ->setTableName($query->getTable())
@@ -43,39 +43,39 @@ class BaseLadminRoute
             ->setCrudAction($crudAction);
     }
 
-    protected function _show(LadminQuery $query, CrudController $controller): mixed
+    protected function _show(LadminQuery $query, CrudController $controller): Route
     {
         return $this->_crudRouting($query, $controller, 'get', LadminConfig::config('uri.show'), 'show')->setNavigation(['navigation']);
     }
 
-    protected function _detail(LadminQuery $query, CrudController $controller): mixed
+    protected function _detail(LadminQuery $query, CrudController $controller): Route
     {
         return $this->_crudRouting($query, $controller, 'get', LadminConfig::config('uri.detail'), 'detail', self::PRIMARY_KEY);
     }
 
-    protected function _edit(LadminQuery $query, CrudController $controller): mixed
+    protected function _edit(LadminQuery $query, CrudController $controller): Route
     {
         return $this->_crudRouting($query, $controller, 'get', LadminConfig::config('uri.edit'), 'edit', self::PRIMARY_KEY_OPTIONAL);
     }
 
-    protected function _create(LadminQuery $query, CrudController $controller): mixed
+    protected function _create(LadminQuery $query, CrudController $controller): Route
     {
         return $this->_crudRouting($query, $controller, 'post', LadminConfig::config('uri.create'), 'create');
     }
 
-    protected function _update(LadminQuery $query, CrudController $controller): mixed
+    protected function _update(LadminQuery $query, CrudController $controller): Route
     {
         return $this->_crudRouting($query, $controller, 'post', LadminConfig::config('uri.update'), 'update', self::PRIMARY_KEY);
     }
 
-    protected function _destroy(LadminQuery $query, CrudController $controller): mixed
+    protected function _destroy(LadminQuery $query, CrudController $controller): Route
     {
         return $this->_crudRouting($query, $controller, 'post', LadminConfig::config('uri.destroy'), 'destroy', self::PRIMARY_KEY);
     }
 
     protected function makeController(string $name): CrudController
     {
-        if (! class_exists($name)) {
+        if (!class_exists($name)) {
             throw new Exception("Target class [$name] does not exist.");
         }
 
