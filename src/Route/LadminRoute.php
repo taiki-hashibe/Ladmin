@@ -34,12 +34,12 @@ class LadminRoute extends BaseLadminRoute
         return null;
     }
 
-    public function show(string $modelOrTable, string $controllerName = CrudController::class, ?string $displayColumn = null): mixed
+    public function show(string $modelOrTable, string $controllerName = CrudController::class, string $displayColumn = null): mixed
     {
         return $this->_show(LadminQuery::make($modelOrTable, $displayColumn), $this->makeController($controllerName));
     }
 
-    public function detail(string $modelOrTable, string $controllerName = CrudController::class, ?string $displayColumn = null): mixed
+    public function detail(string $modelOrTable, string $controllerName = CrudController::class, string $displayColumn = null): mixed
     {
         return $this->_detail(LadminQuery::make($modelOrTable, $displayColumn), $this->makeController($controllerName));
     }

@@ -72,7 +72,7 @@ class LadminQuery
         if ($query instanceof Builder) {
             return self::TYPE_BUILDER;
         }
-        throw new Exception('The specified class [$query] is neither a subclass of ' . Model::class . ' nor ' . Builder::class . '.');
+        throw new Exception('The specified class [$query] is neither a subclass of '.Model::class.' nor '.Builder::class.'.');
     }
 
     public function getTable()

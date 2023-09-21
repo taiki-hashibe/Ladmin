@@ -21,7 +21,7 @@ class BaseLadminRoute
     public function __call($method, $args): Route
     {
         if (LadminConfig::config('view.prefix')) {
-            $args[0] = '/' . LadminConfig::config('view.prefix') . $args[0];
+            $args[0] = '/'.LadminConfig::config('view.prefix').$args[0];
         }
         $router = Route::make()->{$method}(...$args)->name($this->generateName($args[0]));
         if ($this->useMiddleware) {
@@ -34,7 +34,7 @@ class BaseLadminRoute
 
     protected function _crudRouting(LadminQuery $query, CrudController $controller, string $method, string $crudAction, string $actionName, string $primaryKey = null): Route
     {
-        $uri = "/{$query->getTable()}/$crudAction" . ($primaryKey ? "/$primaryKey" : '');
+        $uri = "/{$query->getTable()}/$crudAction".($primaryKey ? "/$primaryKey" : '');
 
         return $this->{$method}($uri, [$controller::class, $actionName])
             ->setTableName($query->getTable())
@@ -75,7 +75,7 @@ class BaseLadminRoute
 
     protected function makeController(string $name): CrudController
     {
-        if (!class_exists($name)) {
+        if (! class_exists($name)) {
             throw new Exception("Target class [$name] does not exist.");
         }
 
