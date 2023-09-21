@@ -107,9 +107,9 @@ class Route
         return $this->navigation;
     }
 
-    public function toNavigation(?string $name = null, ?self $route = null)
+    public function toNavigation(string $name = null, self $route = null)
     {
-        if (!$route) {
+        if (! $route) {
             $route = $this;
         }
 
