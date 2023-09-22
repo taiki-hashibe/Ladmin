@@ -28,7 +28,7 @@ abstract class FieldRenderer implements Renderable
 
     protected bool $isCanFilter = true;
 
-    public function __construct(string $columnName, string $view, string $type = null, ?int $order = null)
+    public function __construct(string $columnName, string $view, string $type = null, int $order = null)
     {
         $this->columnName = $columnName;
         $this->label = $columnName;
@@ -69,6 +69,7 @@ abstract class FieldRenderer implements Renderable
     public function setColumnView(string $columnView): self
     {
         $this->columnView = $columnView;
+
         return $this;
     }
 
@@ -92,12 +93,14 @@ abstract class FieldRenderer implements Renderable
     public function setIsCanSort(bool $isCanSort): self
     {
         $this->isCanSort = $isCanSort;
+
         return $this;
     }
 
     public function setIsCanFilter(bool $isCanFilter): self
     {
         $this->isCanFilter = $isCanFilter;
+
         return $this;
     }
 
@@ -139,7 +142,7 @@ abstract class FieldRenderer implements Renderable
             'name' => $this->columnName,
             'isCanSort' => $this->isCanSort,
             'isCanFilter' => $this->isCanFilter,
-            'params' => $params
+            'params' => $params,
         ]);
     }
 
