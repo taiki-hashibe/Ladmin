@@ -21,6 +21,7 @@ class LadminFilter
     public function except(array $key): self
     {
         $this->params = Arr::except($this->params, $key);
+
         return $this;
     }
 }
