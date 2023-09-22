@@ -20,12 +20,15 @@ abstract class FieldRenderer implements Renderable
 
     protected array $validation = [];
 
-    public function __construct(string $columnName, string $view, string $type = null)
+    protected ?int $order;
+
+    public function __construct(string $columnName, string $view, string $type = null, ?int $order = null)
     {
         $this->columnName = $columnName;
         $this->label = $columnName;
         $this->view = $view;
         $this->type = $type;
+        $this->order = $order;
     }
 
     public function getName(): string
@@ -67,6 +70,11 @@ abstract class FieldRenderer implements Renderable
     public function getValidation(): array
     {
         return $this->validation;
+    }
+
+    public function getOrder(): ?int
+    {
+        return $this->order;
     }
 
     public function render(mixed $params = []): ContractsView

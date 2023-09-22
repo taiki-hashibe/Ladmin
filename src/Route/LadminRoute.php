@@ -90,7 +90,8 @@ class LadminRoute extends BaseLadminRoute
         return $this->get('/profile', [$controllerName, 'index'])
             ->setGroupName('profile')
             ->setLabel('Profile')
-            ->setNavigation(['dropdown']);
+            ->setNavigation(['dropdown'])
+            ->setNavigationOrder(0);
     }
 
     public function crud(string $modelOrTable, string $controllerName = CrudController::class, string|Closure $displayColumn = null): mixed

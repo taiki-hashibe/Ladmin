@@ -21,7 +21,9 @@ class Navigation implements Renderable
 
     public string $view = 'navigation.default';
 
-    public function __construct(string $label, string $uri, string $routeName, string $name = null, string $view = null)
+    public ?int $order = null;
+
+    public function __construct(string $label, string $uri, string $routeName, string $name = null, string $view = null, ?int $order = null)
     {
         $this->label = $label;
         $this->uri = $uri;
@@ -30,6 +32,7 @@ class Navigation implements Renderable
         if ($view) {
             $this->view = $view;
         }
+        $this->order = $order;
     }
 
     public function setView(string $view): self
@@ -42,11 +45,16 @@ class Navigation implements Renderable
     public function isActive(): bool
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (! $currentRoute) {
+        if (!$currentRoute) {
             return false;
         }
 
         return $this->routeName === $currentRoute->route->action['as'];
+    }
+
+    public function getOrder(): ?int
+    {
+        return $this->order;
     }
 
     public function toArray()
@@ -55,6 +63,8 @@ class Navigation implements Renderable
             'label' => $this->label,
             'uri' => $this->uri,
             'routeName' => $this->routeName,
+            'name' => $this->name,
+            'order' => $this->order
         ];
     }
 

@@ -19,6 +19,8 @@ class Route
 
     protected array $navigation = [];
 
+    protected ?int $navigationOrder = null;
+
     public static function make(): self
     {
         return new self;
@@ -107,12 +109,22 @@ class Route
         return $this->navigation;
     }
 
+    public function setNavigationOrder(int $num): self
+    {
+        $this->navigationOrder = $num;
+        return $this;
+    }
+
+    public function getNavigationOrder(): int
+    {
+        return $this->navigationOrder;
+    }
+
     public function toNavigation(string $name = null, self $route = null)
     {
-        if (! $route) {
+        if (!$route) {
             $route = $this;
         }
-
-        return new Navigation($this->label, $this->route->uri, $this->route->action['as'], $name);
+        return new Navigation($this->label, $this->route->uri, $this->route->action['as'], $name, null, $this->navigationOrder);
     }
 }
