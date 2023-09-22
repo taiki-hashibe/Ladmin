@@ -1,0 +1,27 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use LowB\Ladmin\Controllers\AuthController as BaseAuthController;
+
+class AuthController extends BaseAuthController
+{
+    // public function login(Request $request): View|RedirectResponse
+    // {
+        // Display the login form here.
+    // }
+
+    // public function register(Request $request): RedirectResponse
+    // {
+        // Handle the login process here.
+        // Redirect to the appropriate page after login.
+    // }
+
+    // public function logout(Request $request): RedirectResponse
+    // {
+        // Log the user out of the application here.
+    // }
+}

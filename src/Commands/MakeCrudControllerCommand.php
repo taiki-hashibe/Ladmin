@@ -2,25 +2,24 @@
 
 namespace LowB\Ladmin\Commands;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use LowB\Ladmin\Config\Facades\LadminConfig;
 
-class MakeControllerCommand extends GeneratorCommand
+class MakeCrudControllerCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $signature = 'ladmin:make:crudController {handle}';
+    protected $signature = 'ladmin:make:crudController {query}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Make admin controller';
+    protected $description = 'Make admin crud controller';
 
     /**
      * @var string
@@ -30,18 +29,12 @@ class MakeControllerCommand extends GeneratorCommand
     /**
      * @var string
      */
-    protected $handleName;
+    protected $queryName;
 
     public function handle()
     {
-        $this->handleName = $this->getHandleInput();
-        $validHandleNames = ['auth', 'Auth', 'Profile', 'profile', 'Dashboard', 'dashboard'];
-
-        if (!in_array($this->handleName, $validHandleNames)) {
-            $this->error("Invalid handle name. The handleName must be one of: " . implode(', ', $validHandleNames));
-            return false;
-        }
-        $this->controllerName = Str::studly($this->handleName) . 'Controller';
+        $this->queryName = $this->getQueryInput();
+        $this->controllerName = class_basename($this->queryName) . 'CrudController';
 
         $name = $this->qualifyClass(LadminConfig::config('namespace.controller') . '\\' . $this->controllerName);
         $path = $this->getPath($name);
@@ -70,7 +63,7 @@ class MakeControllerCommand extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__ . '\\..\\stubs\\Controllers\\' . Str::studly($this->handleName) . 'Controller.stub';
+        return __DIR__ . '\\..\\stubs\\Controllers\\CrudController.stub';
     }
 
     protected function replaceClass($stub, $name)
@@ -80,9 +73,11 @@ class MakeControllerCommand extends GeneratorCommand
         return str_replace(
             [
                 'DummyNamespace',
+                'DummyControllerName',
             ],
             [
                 LadminConfig::config('namespace.controller'),
+                $this->controllerName,
             ],
             $stub
         );

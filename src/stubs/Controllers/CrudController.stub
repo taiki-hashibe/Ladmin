@@ -6,17 +6,17 @@ use LowB\Ladmin\Controllers\CrudController;
 
 class DummyControllerName extends CrudController
 {
-    public function showFields()
+    public function showFields(): array
     {
         return [];
     }
 
-    public function detailFields()
+    public function detailFields(): array
     {
         return [];
     }
 
-    public function editorFields()
+    public function editorFields(): array
     {
         return [];
     }

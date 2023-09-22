@@ -1,0 +1,65 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Contracts\View\View as ViewView;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\View;
+use Illuminate\Validation\Rules\Password;
+use LowB\Ladmin\Config\Facades\LadminConfig;
+use LowB\Ladmin\Facades\Ladmin;
+use LowB\Ladmin\Controllers\ProfileController as BaseProfileController;
+
+class ProfileController extends BaseProfileController
+{
+    // public function index(): ViewView
+    // {
+        // Here, override the profile index page.
+        // Prioritize the local theme (custom theme) view.
+        // Pass the user data to the view.
+        // return View::first([
+            // LadminConfig::localView('profile.index'),
+            // LadminConfig::themeView('profile.index'),
+        // ], [
+            // 'user' => Auth::user(),
+        // ]);
+    // }
+
+    // public function update(Request $request): RedirectResponse
+    // {
+        // $request->user()->update([
+            // 'name' => $request->name,
+            // 'email' => $request->email,
+        // ]);
+
+        // return back()->with('status', 'profile updated');
+    // }
+
+    // public function passwordChange(Request $request): RedirectResponse
+    // {
+        // Here, override the password change process.
+        // Validate the current password and the new password.
+        // $validated = $request->validateWithBag('updatePassword', [
+            // 'current_password' => ['required', 'current_password'],
+            // 'password' => ['required', Password::defaults(), 'confirmed'],
+        // ]);
+
+        // $request->user()->update([
+            // 'password' => Hash::make($validated['password']),
+        // ]);
+
+        // return back()->with('status', 'password-updated');
+    // }
+
+    // public function destroy(Request $request): RedirectResponse
+    // {
+        // Here, override the account deletion process.
+        // Delete the user's account.
+        // $request->user()->delete();
+
+        // return redirect()->route(Ladmin::login()->getRouteName());
+    // }
+}
