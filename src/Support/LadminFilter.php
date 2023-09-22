@@ -6,14 +6,17 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use LowB\Ladmin\Support\Query\LadminQuery;
 use Illuminate\Support\Str;
+use LowB\Ladmin\Support\Query\LadminQuery;
 
 class LadminFilter
 {
     public const KEYWORD = 'keyword';
+
     public const ORDER = 'order';
+
     public const ORDER_BY = 'by';
+
     public const ORDER_DIRECTION = 'direction';
 
     public static function filter(Request $request, LadminQuery $query): LadminQuery
@@ -23,6 +26,7 @@ class LadminFilter
         foreach ($params as $key => $param) {
             $clone->query = self::handle($key, $param, $clone->query);
         }
+
         return $clone;
     }
 
@@ -34,6 +38,7 @@ class LadminFilter
         if ($key === self::ORDER) {
             return self::order($param[self::ORDER_BY], $param[self::ORDER_DIRECTION], $query);
         }
+
         return self::column($key, $param, $query);
     }
 
@@ -48,12 +53,14 @@ class LadminFilter
                 }
             });
         }
+
         return $query;
     }
 
     protected static function order(string $by, string $direction, Model|Builder|EloquentBuilder $query): Model|Builder|EloquentBuilder
     {
         $query = $query->orderBy($by, $direction);
+
         return $query;
     }
 
@@ -61,6 +68,7 @@ class LadminFilter
     {
         $key = Str::after($key, '_');
         $query = $query->where($key, 'LIKE', "%$param%");
+
         return $query;
     }
 }

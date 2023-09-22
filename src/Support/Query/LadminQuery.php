@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 use LowB\Ladmin\Support\Facades\LadminQueryManager;
 use LowB\Ladmin\Support\LadminFilter;
 
@@ -75,12 +74,13 @@ class LadminQuery
         if ($query instanceof Builder) {
             return self::TYPE_BUILDER;
         }
-        throw new Exception('The specified class [$query] is neither a subclass of ' . Model::class . ' nor ' . Builder::class . '.');
+        throw new Exception('The specified class [$query] is neither a subclass of '.Model::class.' nor '.Builder::class.'.');
     }
 
     public function filter(): self
     {
         $clone = clone $this;
+
         return LadminFilter::filter(request(), $clone);
     }
 
