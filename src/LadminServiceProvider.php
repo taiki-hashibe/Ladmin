@@ -4,6 +4,7 @@ namespace LowB\Ladmin;
 
 use Illuminate\Support\Facades\Blade;
 use LowB\Ladmin\Commands\LadminCommand;
+use LowB\Ladmin\Commands\MakeControllerCommand;
 use LowB\Ladmin\Commands\MakeCrudControllerCommand;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -31,6 +32,7 @@ class LadminServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_ladmin_table')
             ->hasCommand(LadminCommand::class)
+            ->hasCommand(MakeControllerCommand::class)
             ->hasCommand(MakeCrudControllerCommand::class)
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command

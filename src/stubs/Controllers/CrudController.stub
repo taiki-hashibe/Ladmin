@@ -23,7 +23,7 @@ class DummyControllerName extends CrudController
         ];
     }
 
-    public function editorFields(): array
+    public function editFields(): array
     {
         return [
             // EditField::column('name')
