@@ -94,7 +94,7 @@ class LadminRoute extends BaseLadminRoute
             ->setNavigationOrder(0);
     }
 
-    public function crud(string $modelOrTable, ?string $controllerName = null, string|Closure $displayColumn = null): mixed
+    public function crud(string $modelOrTable, string $controllerName = null, string|Closure $displayColumn = null): mixed
     {
         $query = LadminQuery::make($modelOrTable, $displayColumn);
         $controller = $this->makeCrudController($controllerName, $query);
