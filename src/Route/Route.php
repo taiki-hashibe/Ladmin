@@ -112,6 +112,7 @@ class Route
     public function setNavigationOrder(int $num): self
     {
         $this->navigationOrder = $num;
+
         return $this;
     }
 
@@ -122,9 +123,10 @@ class Route
 
     public function toNavigation(string $name = null, self $route = null)
     {
-        if (!$route) {
+        if (! $route) {
             $route = $this;
         }
+
         return new Navigation($this->label, $this->route->uri, $this->route->action['as'], $name, null, $this->navigationOrder);
     }
 }

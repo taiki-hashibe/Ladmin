@@ -23,7 +23,7 @@ class Navigation implements Renderable
 
     public ?int $order = null;
 
-    public function __construct(string $label, string $uri, string $routeName, string $name = null, string $view = null, ?int $order = null)
+    public function __construct(string $label, string $uri, string $routeName, string $name = null, string $view = null, int $order = null)
     {
         $this->label = $label;
         $this->uri = $uri;
@@ -45,7 +45,7 @@ class Navigation implements Renderable
     public function isActive(): bool
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (!$currentRoute) {
+        if (! $currentRoute) {
             return false;
         }
 
@@ -64,7 +64,7 @@ class Navigation implements Renderable
             'uri' => $this->uri,
             'routeName' => $this->routeName,
             'name' => $this->name,
-            'order' => $this->order
+            'order' => $this->order,
         ];
     }
 

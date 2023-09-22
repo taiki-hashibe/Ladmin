@@ -22,7 +22,7 @@ abstract class FieldRenderer implements Renderable
 
     protected ?int $order;
 
-    public function __construct(string $columnName, string $view, string $type = null, ?int $order = null)
+    public function __construct(string $columnName, string $view, string $type = null, int $order = null)
     {
         $this->columnName = $columnName;
         $this->label = $columnName;
