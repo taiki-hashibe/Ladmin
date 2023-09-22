@@ -4,6 +4,7 @@ namespace LowB\Ladmin;
 
 use Exception;
 use LowB\Ladmin\Config\Facades\LadminConfig;
+use LowB\Ladmin\Filter\LadminFilter;
 use LowB\Ladmin\Route\Facades\LadminRoute;
 use LowB\Ladmin\Route\Route;
 use LowB\Ladmin\Support\Facades\LadminQueryManager;
@@ -20,7 +21,7 @@ class Ladmin
     public function currentRoute()
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (! $currentRoute) {
+        if (!$currentRoute) {
             throw new Exception('Current route is not available.');
         }
 
@@ -31,11 +32,11 @@ class Ladmin
     {
         $currentRoute = $this->currentRoute();
         $currentTableName = $currentRoute->getTableName();
-        if (! $currentTableName) {
+        if (!$currentTableName) {
             throw new Exception('Current table name is not available.');
         }
         $currentQuery = LadminQueryManager::getQuery($currentTableName);
-        if (! $currentQuery) {
+        if (!$currentQuery) {
             throw new Exception("Query for table '$currentTableName' is not available.");
         }
 
@@ -93,6 +94,11 @@ class Ladmin
         return $query->findDelete($primaryKey);
     }
 
+    public function filter()
+    {
+        return new LadminFilter();
+    }
+
     public function getNavigation(string $name = null)
     {
         $navigation = new RenderableArray();
@@ -116,11 +122,11 @@ class Ladmin
     public function getCurrentCrudGroup(): ?array
     {
         $currentRoute = LadminRoute::getCurrentRoute();
-        if (! $currentRoute) {
+        if (!$currentRoute) {
             return null;
         }
         $currentGroupName = $currentRoute->getGroupName();
-        if (! $currentGroupName) {
+        if (!$currentGroupName) {
             return null;
         }
         $crud = [];
@@ -136,7 +142,7 @@ class Ladmin
     private function getCrudAction(string $crudAction): Route
     {
         $currentCrudGroup = $this->getCurrentCrudGroup();
-        if (! $currentCrudGroup) {
+        if (!$currentCrudGroup) {
             throw new Exception('Current CRUD group is not available.');
         }
         foreach ($currentCrudGroup as $route) {
@@ -252,7 +258,7 @@ class Ladmin
     public function hasCrudAction(string $crudAction): bool
     {
         $currentCrudGroup = $this->getCurrentCrudGroup();
-        if (! $currentCrudGroup) {
+        if (!$currentCrudGroup) {
             return false;
         }
         foreach ($currentCrudGroup as $route) {

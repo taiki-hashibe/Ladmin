@@ -1,5 +1,6 @@
 <x-ladmin-layouts-auth>
     <x-slot name="content">
+        {{ Ladmin::filter()->test() }}
         <h2>{{ __(Ladmin::currentRoute()->getTableName()) }}</h2>
         <table>
             <thead>
