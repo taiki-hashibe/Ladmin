@@ -10,6 +10,8 @@ use LowB\Ladmin\Contracts\Renderable;
 
 abstract class FieldRenderer implements Renderable
 {
+    protected string $columnView = 'fields.show.column-default';
+
     protected string $view = 'fields.default';
 
     protected ?string $type;
@@ -21,6 +23,10 @@ abstract class FieldRenderer implements Renderable
     protected array $validation = [];
 
     protected ?int $order;
+
+    protected bool $isCanSort = true;
+
+    protected bool $isCanFilter = true;
 
     public function __construct(string $columnName, string $view, string $type = null, ?int $order = null)
     {
@@ -60,6 +66,12 @@ abstract class FieldRenderer implements Renderable
         return $this;
     }
 
+    public function setColumnView(string $columnView): self
+    {
+        $this->columnView = $columnView;
+        return $this;
+    }
+
     public function setValidation(array $validation): self
     {
         $this->validation = $validation;
@@ -75,6 +87,18 @@ abstract class FieldRenderer implements Renderable
     public function getOrder(): ?int
     {
         return $this->order;
+    }
+
+    public function setIsCanSort(bool $isCanSort): self
+    {
+        $this->isCanSort = $isCanSort;
+        return $this;
+    }
+
+    public function setIsCanFilter(bool $isCanFilter): self
+    {
+        $this->isCanFilter = $isCanFilter;
+        return $this;
     }
 
     public function render(mixed $params = []): ContractsView
@@ -94,6 +118,28 @@ abstract class FieldRenderer implements Renderable
             'label' => $this->getLabel(),
             'name' => $this->columnName,
             'value' => $this->getValue($params),
+        ]);
+    }
+
+    public function showColumnRender(mixed $params = [])
+    {
+        $viewPriority = [];
+        if ($this->type) {
+            $viewPriority[] = LadminConfig::localView(Str::of($this->columnView)->replace('default', $this->type));
+        }
+        $viewPriority[] = LadminConfig::localView($this->columnView);
+        if ($this->type) {
+            $viewPriority[] = LadminConfig::localView(Str::of($this->columnView)->replace('default', $this->type));
+        }
+        $viewPriority[] = LadminConfig::themeView($this->columnView);
+
+        return View::first($viewPriority, [
+            'field' => $this,
+            'label' => $this->getLabel(),
+            'name' => $this->columnName,
+            'isCanSort' => $this->isCanSort,
+            'isCanFilter' => $this->isCanFilter,
+            'params' => $params
         ]);
     }
 
