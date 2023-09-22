@@ -18,6 +18,7 @@ class LadminFilter
     public function except(array|string $key): self
     {
         $this->params = Arr::except($this->params, Arr::wrap($key));
+
         return $this;
     }
 
@@ -31,7 +32,7 @@ class LadminFilter
         foreach ($this->params as $key => $param) {
             if (is_array($param) && $key === SupportLadminFilter::ORDER) {
                 foreach ($param as $orderParamKey => $orderParam) {
-                    echo $this->getInputElm("$key" . "[" . $orderParamKey . "]", $orderParam);
+                    echo $this->getInputElm("$key".'['.$orderParamKey.']', $orderParam);
                 }
             } elseif ($key === SupportLadminFilter::KEYWORD) {
                 echo $this->getInputElm($key, $param);
