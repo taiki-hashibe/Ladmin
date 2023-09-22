@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function login(Request $request): View|RedirectResponse
     {
         return FacadesView::first([
-            LadminConfig::config('view.prefix').'.auth.login',
+            LadminConfig::localView('auth.login'),
             LadminConfig::themeView('auth.login'),
         ]);
     }
