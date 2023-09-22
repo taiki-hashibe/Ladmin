@@ -4,10 +4,12 @@ namespace LowB\Ladmin\Support\Query;
 
 use Closure;
 use Exception;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use LowB\Ladmin\Support\Facades\LadminQueryManager;
 
 class LadminQuery
@@ -18,7 +20,7 @@ class LadminQuery
 
     public string $primaryKey = 'id';
 
-    public Model|Builder $query;
+    public Model|Builder|EloquentBuilder $query;
 
     public string $queryType;
 
@@ -72,7 +74,22 @@ class LadminQuery
         if ($query instanceof Builder) {
             return self::TYPE_BUILDER;
         }
-        throw new Exception('The specified class [$query] is neither a subclass of '.Model::class.' nor '.Builder::class.'.');
+        throw new Exception('The specified class [$query] is neither a subclass of ' . Model::class . ' nor ' . Builder::class . '.');
+    }
+
+    public function filter(): self
+    {
+        $clone = clone $this;
+        $params = request()->all();
+        foreach ($params as $key => $value) {
+            if ($key !== 'order') {
+                $key = Str::after($key, '_');
+                $clone->query = $clone->query->where($key, 'LIKE', "%$value%");
+            } else {
+                $clone->query = $clone->query->orderBy($value['by'], $value['direction']);
+            }
+        }
+        return $clone;
     }
 
     public function getTable()
