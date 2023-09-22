@@ -11,12 +11,12 @@ class DashboardController extends BaseDashboardController
 {
     // public function index(): ViewView
     // {
-       //  Here, override the profile index page.
-       //  Prioritize the local theme (custom theme) view.
-       //  Pass the user data to the view.
-       //  return View::first([
-            // LadminConfig::localView('dashboard'),
-            // LadminConfig::themeView('dashboard'),
-        // ]);
+    //     Here, override the profile index page.
+    //     Prioritize the local theme (custom theme) view.
+    //     Pass the user data to the view.
+    //     return View::first([
+    //         LadminConfig::localView('dashboard'),
+    //         LadminConfig::themeView('dashboard'),
+    //     ]);
     // }
 }
