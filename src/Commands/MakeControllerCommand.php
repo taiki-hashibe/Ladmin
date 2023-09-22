@@ -37,14 +37,14 @@ class MakeControllerCommand extends GeneratorCommand
         $this->handleName = $this->getHandleInput();
         $validHandleNames = ['auth', 'Auth', 'Profile', 'profile', 'Dashboard', 'dashboard'];
 
-        if (!in_array($this->handleName, $validHandleNames)) {
-            $this->error('Invalid handle name. The handleName must be one of: ' . implode(', ', $validHandleNames));
+        if (! in_array($this->handleName, $validHandleNames)) {
+            $this->error('Invalid handle name. The handleName must be one of: '.implode(', ', $validHandleNames));
 
             return false;
         }
-        $this->controllerName = Str::studly($this->handleName) . 'Controller';
+        $this->controllerName = Str::studly($this->handleName).'Controller';
 
-        $name = $this->qualifyClass(LadminConfig::config('namespace.controller') . '\\' . $this->controllerName);
+        $name = $this->qualifyClass(LadminConfig::config('namespace.controller').'\\'.$this->controllerName);
         $path = $this->getPath($name);
         $this->makeDirectory($path);
         $this->files->put($path, $this->sortImports($this->buildClass($name)));
@@ -71,7 +71,7 @@ class MakeControllerCommand extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__ . '\\..\\stubs\\Controllers\\' . Str::studly($this->handleName) . 'Controller.stub';
+        return __DIR__.'\\..\\stubs\\Controllers\\'.Str::studly($this->handleName).'Controller.stub';
     }
 
     protected function replaceClass($stub, $name)
