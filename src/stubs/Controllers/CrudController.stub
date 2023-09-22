@@ -3,21 +3,30 @@
 namespace DummyNamespace;
 
 use LowB\Ladmin\Controllers\CrudController;
+use LowB\Ladmin\Fields\Show\ShowField;
+use LowB\Ladmin\Fields\Detail\DetailField;
+use LowB\Ladmin\Fields\Edit\EditField;
 
 class DummyControllerName extends CrudController
 {
     public function showFields(): array
     {
-        return [];
+        return [
+            // ShowField::column('name')
+        ];
     }
 
     public function detailFields(): array
     {
-        return [];
+        return [
+            // DetailField::column('name')
+        ];
     }
 
     public function editorFields(): array
     {
-        return [];
+        return [
+            // EditField::column('name')
+        ];
     }
 }
