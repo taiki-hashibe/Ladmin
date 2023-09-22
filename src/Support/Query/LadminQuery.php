@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use LowB\Ladmin\Support\Facades\LadminQueryManager;
+use LowB\Ladmin\Support\LadminFilter;
 
 class LadminQuery
 {
@@ -74,23 +75,13 @@ class LadminQuery
         if ($query instanceof Builder) {
             return self::TYPE_BUILDER;
         }
-        throw new Exception('The specified class [$query] is neither a subclass of '.Model::class.' nor '.Builder::class.'.');
+        throw new Exception('The specified class [$query] is neither a subclass of ' . Model::class . ' nor ' . Builder::class . '.');
     }
 
     public function filter(): self
     {
         $clone = clone $this;
-        $params = request()->all();
-        foreach ($params as $key => $value) {
-            if ($key !== 'order') {
-                $key = Str::after($key, '_');
-                $clone->query = $clone->query->where($key, 'LIKE', "%$value%");
-            } else {
-                $clone->query = $clone->query->orderBy($value['by'], $value['direction']);
-            }
-        }
-
-        return $clone;
+        return LadminFilter::filter(request(), $clone);
     }
 
     public function getTable()
