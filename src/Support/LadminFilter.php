@@ -22,30 +22,31 @@ class LadminFilter
     public static function filter(Request $request, LadminQuery $query): LadminQuery
     {
         $clone = clone $query;
+        $columnNames = $clone->getColumnNames();
         $params = $request->all();
         foreach ($params as $key => $param) {
-            $clone->query = self::handle($key, $param, $clone->query);
+            $clone->query = self::handle($key, $param, $clone, $columnNames);
         }
 
         return $clone;
     }
 
-    protected static function handle(string $key, mixed $param, Model|Builder|EloquentBuilder $query): Model|Builder|EloquentBuilder
+    protected static function handle(string $key, mixed $param, LadminQuery $clone, array $columnNames): Model|Builder|EloquentBuilder
     {
         if ($key === self::KEYWORD) {
-            return self::keyword($param, $query);
+            return self::keyword($param, $clone, $columnNames);
         }
         if ($key === self::ORDER) {
-            return self::order($param[self::ORDER_BY], $param[self::ORDER_DIRECTION], $query);
+            return self::order($param[self::ORDER_BY], $param[self::ORDER_DIRECTION], $clone->query);
         }
 
-        return self::column($key, $param, $query);
+        return self::column($key, $param, $clone->query);
     }
 
-    protected static function keyword(string $param, Model|Builder|EloquentBuilder $query): Model|Builder|EloquentBuilder
+    protected static function keyword(string $param, LadminQuery $clone, array $columnNames): Model|Builder|EloquentBuilder
     {
+        $query = $clone->query;
         $keywords = preg_split('/[\s　]+/', $param);
-        $columnNames = $query->getColumnNames();
         foreach ($keywords as $keyword) {
             $query = $query->where(function ($query) use ($keyword, $columnNames) {
                 foreach ($columnNames as $column) {
