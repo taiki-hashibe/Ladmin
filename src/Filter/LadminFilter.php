@@ -29,6 +29,9 @@ class LadminFilter
     public function render()
     {
         foreach ($this->params as $key => $param) {
+            if ($key === 'page') {
+                continue;
+            }
             if (is_array($param) && $key === SupportLadminFilter::ORDER) {
                 foreach ($param as $orderParamKey => $orderParam) {
                     echo $this->getInputElm("$key" . "[" . $orderParamKey . "]", $orderParam);

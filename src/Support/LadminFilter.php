@@ -25,6 +25,9 @@ class LadminFilter
         $columnNames = $clone->getColumnNames();
         $params = $request->all();
         foreach ($params as $key => $param) {
+            if ($key === 'page') {
+                continue;
+            }
             $clone->query = self::handle($key, $param, $clone, $columnNames);
         }
 
