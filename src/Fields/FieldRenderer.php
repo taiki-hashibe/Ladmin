@@ -57,7 +57,7 @@ abstract class FieldRenderer implements Renderable
 
     public function getValue(mixed $query): mixed
     {
-        if (! $query) {
+        if (!$query) {
             $query = Ladmin::currentQuery();
         }
 
@@ -117,7 +117,7 @@ abstract class FieldRenderer implements Renderable
         }
         $viewPriority[] = LadminConfig::localView($this->view);
         if ($this->type) {
-            $viewPriority[] = LadminConfig::localView(Str::of($this->view)->replace('default', $this->type));
+            $viewPriority[] = LadminConfig::themeView(Str::of($this->view)->replace('default', $this->type));
         }
         $viewPriority[] = LadminConfig::themeView($this->view);
 

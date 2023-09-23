@@ -39,7 +39,6 @@ class GenerateFields
     public function edit(LadminQuery $query): array
     {
         $fields = [];
-        dump($query);
         foreach ($query->getColumns() as $col) {
             /** @var \Doctrine\DBAL\Schema\Column $col */
             if ($col->getAutoincrement()) {
@@ -50,6 +49,7 @@ class GenerateFields
             }
             $type = $col->getType();
             $typeName = $type->getTypeRegistry()->lookupName($type);
+
             $fields[] = $this->handle($col, 'editor', $typeName)::column($col->getName(), $typeName)->setValidation(GenerateValidationRules::generateColumn($col));
         }
 
@@ -59,11 +59,11 @@ class GenerateFields
     protected function handle(\Doctrine\DBAL\Schema\Column $col, string $action, string $typeName): Field
     {
         $studlyActionName = Str::studly($action);
-        $fieldClass = "\LowB\Ladmin\Fields\\$studlyActionName\\$studlyActionName".'Field';
-        if (class_exists(LadminConfig::config('namespace.fields')."\\$studlyActionName\\$studlyActionName".Str::studly($typeName).'Field')) {
-            $fieldClass = LadminConfig::config('namespace.fields')."\\$studlyActionName\\$studlyActionName".Str::studly($typeName).'Field';
-        } elseif (class_exists("\LowB\Ladmin\Fields\\$studlyActionName\\$studlyActionName".Str::studly($typeName).'Field')) {
-            $fieldClass = "\LowB\Ladmin\Fields\\$studlyActionName\\$studlyActionName".Str::studly($typeName).'Field';
+        $fieldClass = "\LowB\Ladmin\Fields\\$studlyActionName\\$studlyActionName" . 'Field';
+        if (class_exists(LadminConfig::config('namespace.fields') . "\\$studlyActionName\\$studlyActionName" . Str::studly($typeName) . 'Field')) {
+            $fieldClass = LadminConfig::config('namespace.fields') . "\\$studlyActionName\\$studlyActionName" . Str::studly($typeName) . 'Field';
+        } elseif (class_exists("\LowB\Ladmin\Fields\\$studlyActionName\\$studlyActionName" . Str::studly($typeName) . 'Field')) {
+            $fieldClass = "\LowB\Ladmin\Fields\\$studlyActionName\\$studlyActionName" . Str::studly($typeName) . 'Field';
         }
 
         return app()->make($fieldClass);
