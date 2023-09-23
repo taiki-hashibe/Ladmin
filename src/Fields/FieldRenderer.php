@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use LowB\Ladmin\Config\Facades\LadminConfig;
 use LowB\Ladmin\Contracts\Renderable;
+use LowB\Ladmin\Facades\Ladmin;
 
 abstract class FieldRenderer implements Renderable
 {
@@ -56,6 +57,9 @@ abstract class FieldRenderer implements Renderable
 
     public function getValue(mixed $query): mixed
     {
+        if (!$query) {
+            $query = Ladmin::currentQuery();
+        }
         return $query->{$this->columnName};
     }
 
