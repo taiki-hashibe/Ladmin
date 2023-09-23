@@ -30,14 +30,12 @@ class LadminServiceProvider extends PackageServiceProvider
             ->hasAssets()
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_ladmin_table')
             ->hasCommand(LadminCommand::class)
             ->hasCommand(MakeControllerCommand::class)
             ->hasCommand(MakeCrudControllerCommand::class)
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
-                    ->publishMigrations()
                     ->askToRunMigrations();
             });
         Blade::component('ladmin-layouts-ladmin', \LowB\Ladmin\View\Components\LadminLayout::class);
