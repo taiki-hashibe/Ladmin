@@ -57,7 +57,7 @@ abstract class FieldRenderer implements Renderable
 
     public function getValue(mixed $query): mixed
     {
-        if (!$query) {
+        if (! $query) {
             $query = Ladmin::currentQuery();
         }
 
