@@ -5,7 +5,7 @@ namespace DummyNamespace;
 use LowB\Ladmin\Controllers\CrudController;
 use LowB\Ladmin\Fields\Show\ShowField;
 use LowB\Ladmin\Fields\Detail\DetailField;
-use LowB\Ladmin\Fields\Edit\EditField;
+use LowB\Ladmin\Fields\Editor\EditorField;
 
 class DummyControllerName extends CrudController
 {
