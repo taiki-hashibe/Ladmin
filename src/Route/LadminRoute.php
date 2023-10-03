@@ -36,32 +36,38 @@ class LadminRoute extends BaseLadminRoute
 
     public function show(string $modelOrTable, string $controllerName = CrudController::class, string $displayColumn = null): mixed
     {
-        return $this->_show(LadminQuery::make($modelOrTable, $displayColumn), $this->makeController($controllerName));
+        $query = LadminQuery::make($modelOrTable, $displayColumn);
+        return $this->_show(LadminQuery::make($modelOrTable, $displayColumn), $this->makeCrudController($controllerName, $query));
     }
 
     public function detail(string $modelOrTable, string $controllerName = CrudController::class, string $displayColumn = null): mixed
     {
-        return $this->_detail(LadminQuery::make($modelOrTable, $displayColumn), $this->makeController($controllerName));
+        $query = LadminQuery::make($modelOrTable, $displayColumn);
+        return $this->_detail(LadminQuery::make($modelOrTable, $displayColumn), $this->makeCrudController($controllerName, $query));
     }
 
     public function edit(string $modelOrTable, string $controllerName = CrudController::class, string|Closure $displayColumn = null): mixed
     {
-        return $this->_edit(LadminQuery::make($modelOrTable, $displayColumn), $this->makeController($controllerName));
+        $query = LadminQuery::make($modelOrTable, $displayColumn);
+        return $this->_edit(LadminQuery::make($modelOrTable, $displayColumn), $this->makeCrudController($controllerName, $query));
     }
 
     public function create(string $modelOrTable, string $controllerName = CrudController::class): mixed
     {
-        return $this->_create(LadminQuery::make($modelOrTable), $this->makeController($controllerName));
+        $query = LadminQuery::make($modelOrTable);
+        return $this->_create(LadminQuery::make($modelOrTable), $this->makeCrudController($controllerName, $query));
     }
 
     public function update(string $modelOrTable, string $controllerName = CrudController::class): mixed
     {
-        return $this->_update(LadminQuery::make($modelOrTable), $this->makeController($controllerName));
+        $query = LadminQuery::make($modelOrTable);
+        return $this->_update(LadminQuery::make($modelOrTable), $this->makeCrudController($controllerName, $query));
     }
 
     public function destroy(string $modelOrTable, string $controllerName = CrudController::class): mixed
     {
-        return $this->_destroy(LadminQuery::make($modelOrTable), $this->makeController($controllerName));
+        $query = LadminQuery::make($modelOrTable);
+        return $this->_destroy(LadminQuery::make($modelOrTable), $this->makeCrudController($controllerName, $query));
     }
 
     public function auth(string $controllerName = AuthController::class): mixed
